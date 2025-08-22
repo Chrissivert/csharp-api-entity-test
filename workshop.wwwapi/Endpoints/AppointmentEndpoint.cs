@@ -9,7 +9,6 @@ using workshop.wwwapi.Models;
 public class AppointmentEndpoint : ControllerBase
 {
     private readonly DatabaseContext _context;
-
     public AppointmentEndpoint(DatabaseContext context)
     {
         _context = context;

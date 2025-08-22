@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.IO;
 
 namespace workshop.wwwapi.Data
@@ -9,14 +10,17 @@ namespace workshop.wwwapi.Data
     {
         public DatabaseContext CreateDbContext(string[] args)
         {
+            // Construct the full path to appsettings.Example.json
+            var jsonFileName = "appsettings.json";
+            var jsonFilePath = Path.Combine(Directory.GetCurrentDirectory(), jsonFileName);
+
             IConfigurationRoot configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.Example.json")
+                .AddJsonFile(jsonFileName, optional: false, reloadOnChange: true)
                 .Build();
 
-            var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
             var connectionString = configuration.GetConnectionString("DefaultConnectionString");
-
+            var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
             optionsBuilder.UseNpgsql(connectionString);
 
             return new DatabaseContext(optionsBuilder.Options);

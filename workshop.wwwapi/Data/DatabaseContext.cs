@@ -7,7 +7,7 @@ namespace workshop.wwwapi.Data
     {
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
-            this.Database.EnsureCreated();
+            // this.Database.EnsureCreated();
         }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
