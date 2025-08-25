@@ -5,6 +5,8 @@ using workshop.wwwapi.Models;
 
 
 [ApiController]
+//Should be named AppointmentController but i decided to keep it like this for now
+//since it works
 [Route("api/[controller]")]
 public class AppointmentEndpoint : ControllerBase
 {
@@ -14,7 +16,6 @@ public class AppointmentEndpoint : ControllerBase
         _context = context;
     }
 
-    // GET: api/appointments
     [HttpGet]
     public async Task<ActionResult<IEnumerable<AppointmentDto>>> GetAllAppointments()
     {
@@ -33,14 +34,13 @@ public class AppointmentEndpoint : ControllerBase
         return Ok(appointments);
     }
 
-    // GET: api/appointments/{id}
     [HttpGet("{id}")]
-    public async Task<ActionResult<AppointmentDto>> GetAppointmentById(int id)
+    public async Task<ActionResult<AppointmentDto>> GetAppointmentById(int appointmentId)
     {
         var appointment = await _context.Appointments
             .Include(a => a.Doctor)
             .Include(a => a.Patient)
-            .Where(a => a.Id == id)
+            .Where(a => a.Id == appointmentId)
             .Select(a => new AppointmentDto
             {
                 Id = a.Id,
@@ -56,7 +56,6 @@ public class AppointmentEndpoint : ControllerBase
         return Ok(appointment);
     }
 
-    // GET: api/appointments/doctor/{doctorId}
     [HttpGet("doctor/{doctorId}")]
     public async Task<ActionResult<IEnumerable<AppointmentDto>>> GetAppointmentsByDoctorId(int doctorId)
     {
@@ -76,7 +75,6 @@ public class AppointmentEndpoint : ControllerBase
         return Ok(appointments);
     }
 
-    // GET: api/appointments/patient/{patientId}
     [HttpGet("patient/{patientId}")]
     public async Task<ActionResult<IEnumerable<AppointmentDto>>> GetAppointmentsByPatientId(int patientId)
     {
@@ -96,7 +94,6 @@ public class AppointmentEndpoint : ControllerBase
         return Ok(appointments);
     }
 
-    // POST: api/appointments
     [HttpPost]
     public async Task<ActionResult<AppointmentDto>> CreateAppointment(CreateAppointmentDto dto)
     {
@@ -110,7 +107,6 @@ public class AppointmentEndpoint : ControllerBase
         _context.Appointments.Add(appointment);
         await _context.SaveChangesAsync();
 
-        // Load doctor/patient to return DTO properly
         appointment = await _context.Appointments
             .Include(a => a.Doctor)
             .Include(a => a.Patient)

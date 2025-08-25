@@ -12,7 +12,7 @@ namespace workshop.wwwapi.Models
         public int Id { get; set; }
 
         [Column("booking")]
-        public DateTime Booking { get; set; }
+        public DateTime? Booking { get; set; }
 
         [Column("doctor_id")]
         public int DoctorId { get; set; }

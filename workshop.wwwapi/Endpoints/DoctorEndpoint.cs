@@ -5,6 +5,8 @@ using workshop.wwwapi.Models;
 
 
 [ApiController]
+//Should be named DoctorController but i decided to keep it like this for now
+//since it works
 [Route("api/[controller]")]
 public class DoctorEndpoint : ControllerBase
 {
@@ -15,7 +17,6 @@ public class DoctorEndpoint : ControllerBase
         _context = context;
     }
 
-    // GET: api/patients
     [HttpGet]
     public async Task<ActionResult<IEnumerable<DoctorDTO>>> GetAllDoctors()
     {
@@ -30,7 +31,6 @@ public class DoctorEndpoint : ControllerBase
         return Ok(doctors);
     }
 
-    // GET: api/patients/{id}
     [HttpGet("{id}")]
     public async Task<ActionResult<DoctorDTO>> GetDoctorById(int id)
     {
@@ -49,7 +49,6 @@ public class DoctorEndpoint : ControllerBase
         return Ok(doctor);
     }
 
-    // POST: api/patients
     [HttpPost]
     public async Task<ActionResult<DoctorDTO>> CreateDoctor(CreateDoctorDTO dto)
     {

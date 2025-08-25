@@ -10,7 +10,6 @@ namespace workshop.wwwapi.Data
     {
         public DatabaseContext CreateDbContext(string[] args)
         {
-            // Construct the full path to appsettings.Example.json
             var jsonFileName = "appsettings.json";
             var jsonFilePath = Path.Combine(Directory.GetCurrentDirectory(), jsonFileName);
 
